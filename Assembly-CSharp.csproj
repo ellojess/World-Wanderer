@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\animationScriptController.cs" />
+     <Compile Include="Assets\animationStateController.cs" />
  <Reference Include="UnityEngine.Purchasing">
  <HintPath>/Users/jessicatrinh/Documents/unity/learningAnimations/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
