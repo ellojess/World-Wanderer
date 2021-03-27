@@ -9,6 +9,8 @@ public class twoDimensionalAnimationStateController : MonoBehaviour
     float velocityX = 0.0f;
     public float acceleration = 2.0f; 
     public float deceleration = 2.0f; 
+    public float maxWalkVelocity = 0.5f;
+    public float maxRunVelocity = 2.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,20 +30,23 @@ public class twoDimensionalAnimationStateController : MonoBehaviour
         bool rightPressed = Input.GetKey("d");
         bool runPressed = Input.GetKey("r");
 
+        // set current maxVelocity 
+        float currentMaxVelocity = runPressed ? maxRunVelocity : maxWalkVelocity;
+
         // if player presses forward, increase velocity in z direction 
-        if (forwardPressed && velocityZ < 0.5f && !runPressed)
+        if (forwardPressed && velocityZ < currentMaxVelocity)
         {
             velocityZ += Time.deltaTime * acceleration;
         }
 
         // increase velocity in left direction 
-        if (leftPressed && velocityX < 0.5f && !runPressed) 
+        if (leftPressed && velocityX > -currentMaxVelocity) 
         {
             velocityX -= Time.deltaTime * acceleration;
         }
 
         // increase velocity in right direction 
-        if (rightPressed && velocityX < 0.5f && !runPressed)
+        if (rightPressed && velocityX < currentMaxVelocity)
         {
             velocityX += Time.deltaTime * acceleration;
         }
@@ -71,7 +76,7 @@ public class twoDimensionalAnimationStateController : MonoBehaviour
         }
 
         // reset velocityX
-        if (!leftPressed && !rightPressed && velocityX != 0.0f && (velocityX > -0.05f && velocityX < 0.05f))
+        if (!leftPressed && !rightPressed && velocityX != 0.0f && (velocityX > -0.05f && velocityX < maxWalkVelocity))
         {
             velocityX = 0.0f;
         }
